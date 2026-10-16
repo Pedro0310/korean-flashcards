@@ -1,0 +1,169 @@
+@import 'tailwindcss';
+
+/* Dark mode is a user toggle: the `dark` class on <html> (see src/theme.ts). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens from design/DESIGN.md. Light values here, dark overrides below. */
+@theme static {
+  --font-sans: 'Noto Sans KR', system-ui, sans-serif;
+  --font-serif: 'Noto Serif KR', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --color-bg: #edf1f7;
+  --color-grid: #dfe6f0;
+  --color-panel: #ffffff;
+  --color-ink: #1b2433;
+  --color-body: #3f4c63;
+  --color-muted: #55627a;
+  --color-ink2: #2b3a52;
+  --color-row: #f0f4fa;
+  --color-chip: #e6edf7;
+  --color-chip-text: #1e3a6e;
+  --color-divider: #d3dce8;
+  --color-navy: #1e3a6e;
+  --color-accent: #2563eb;
+  --color-switch-on: #1e3a6e;
+  --color-switch-off: #c3cedd;
+  --color-note: #c9defb;
+  --color-highlight: #c9defb;
+  --color-scrim: rgba(27, 36, 51, 0.32);
+  --color-tape: rgba(255, 255, 255, 0.65);
+
+  /* Text on the sticky note keeps the light-mode ink in both themes. */
+  --color-note-ink: #1b2433;
+  --color-note-ink2: #2b3a52;
+
+  /* Answer buttons */
+  --color-again: #fdecea;
+  --color-again-ink: #b42318;
+  --color-hard: #fff1d6;
+  --color-hard-ink: #8a5300;
+  --color-good: #e2f4e7;
+  --color-good-ink: #1e6b3a;
+  --color-easy: #e2ecfa;
+  --color-easy-ink: #1d4f91;
+
+  /* Stats screen */
+  --color-line: #d4ddea;
+  --color-axis: #c3cedd;
+  --color-gridline: #dee5ef;
+  --color-hint: #eaf2fe;
+  --color-stat-ink: #1d4ed8;
+  --color-danger: #b42318;
+  --color-danger-fill: #b42318;
+  --color-card-new: #bfd6f6;
+  --color-card-learning: #7fb2f5;
+  --color-young: #3b82f6;
+  --color-mature: #1e40af;
+  --color-heat-0: #e3eaf3;
+  --color-heat-1: #bfdbfe;
+  --color-heat-2: #7fb2f5;
+  --color-heat-3: #3b82f6;
+  --color-heat-4: #1d4ed8;
+  --color-again-bar: #b42318;
+  --color-hard-bar: #b07a12;
+  --color-good-bar: #2e8a4e;
+  --color-easy-bar: #2f6bc2;
+
+  --radius-note: 4px;
+  --radius-panel: 14px;
+}
+
+:root {
+  color-scheme: light;
+  --panel-shadow: 0 8px 24px -10px rgba(27, 36, 51, 0.25);
+  --note-shadow: 0 18px 30px -12px rgba(27, 36, 51, 0.35), 0 2px 4px rgba(27, 36, 51, 0.12);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --color-bg: #0f1520;
+  --color-grid: #172030;
+  --color-panel: #1a2333;
+  --color-ink: #e8eef7;
+  --color-body: #b4c0d3;
+  --color-muted: #9aa8bf;
+  --color-ink2: #ccd6e6;
+  --color-row: #243044;
+  --color-chip: #2a364a;
+  --color-chip-text: #d2def0;
+  --color-divider: #334058;
+  --color-accent: #60a5fa;
+  --color-switch-on: #3b82f6;
+  --color-switch-off: #46546c;
+  --color-highlight: rgba(201, 222, 251, 0.4);
+  --color-scrim: rgba(0, 0, 0, 0.55);
+  --color-tape: rgba(255, 255, 255, 0.28);
+
+  --color-again: #3a2326;
+  --color-again-ink: #ff9f93;
+  --color-hard: #3a3020;
+  --color-hard-ink: #f2c36b;
+  --color-good: #1f3328;
+  --color-good-ink: #8bd9a6;
+  --color-easy: #1f2a3d;
+  --color-easy-ink: #9cc2f5;
+
+  --color-line: #334058;
+  --color-axis: #46546c;
+  --color-gridline: #334058;
+  --color-hint: #1a2a44;
+  --color-stat-ink: #93c5fd;
+  --color-danger: #ff9f93;
+  --color-danger-fill: #c0392b;
+  --color-card-new: #2a4a7a;
+  --color-card-learning: #3d6fc0;
+  --color-young: #5b9bf5;
+  --color-mature: #a9cdfb;
+  --color-heat-0: #1e2838;
+  --color-heat-1: #1e3a66;
+  --color-heat-2: #2457a6;
+  --color-heat-3: #3b82f6;
+  --color-heat-4: #93c5fd;
+  --color-again-bar: #ff9f93;
+  --color-hard-bar: #f2c36b;
+  --color-good-bar: #8bd9a6;
+  --color-easy-bar: #9cc2f5;
+
+  --panel-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.6);
+  --note-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+@utility shadow-panel {
+  box-shadow: var(--panel-shadow);
+}
+
+@utility shadow-note {
+  box-shadow: var(--note-shadow);
+}
+
+/* Sticky note surface */
+@utility bg-note-paper {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%), var(--color-note);
+}
+
+/* Marker highlight behind the word in an example sentence */
+@utility bg-highlight {
+  background: linear-gradient(transparent 58%, var(--color-highlight) 58%);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    /* 24px graph paper */
+    background-image:
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--color-ink);
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+    @apply antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}

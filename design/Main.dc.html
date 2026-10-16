@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Word card — 대박</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&amp;family=Noto+Serif+KR:wght@600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1E3A6E}a:hover{color:#14213A}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 100vh; box-sizing: border-box; padding: clamp(20px, 5vw, 32px) clamp(16px, 5vw, 36px) 40px; display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 5vw, 28px); background-color: {{c.bg}}; background-image: linear-gradient({{c.grid}} 1px, transparent 1px), linear-gradient(90deg, {{c.grid}} 1px, transparent 1px); background-size: 24px 24px; font-family: 'Noto Sans KR', system-ui, sans-serif; color: {{c.text}}; overflow: hidden; position: relative; transition: background-color 0.2s, color 0.2s">
+
+  <div style="display: flex; align-items: center; gap: 12px; width: 100%; max-width: 560px; box-sizing: border-box; padding-left: 0; margin-left: -10px">
+    <button type="button" aria-label="Open menu" onClick="{{openMenu}}" style="width: 44px; height: 44px; border: none; background: transparent; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; color: {{c.text}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+    <div aria-hidden="true" style="width: 40px; height: 40px; border-radius: 10px; background: {{noteBg}}; box-shadow: 0 1px 3px rgba(0,0,0,0.18); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; color: #1B2433">한</div>
+    <div style="display: flex; flex-direction: column; gap: 1px">
+      <div style="font-weight: 800; font-size: 17px; letter-spacing: -0.01em">암기</div>
+      <div style="font-size: 12px; color: {{c.muted}}">{{currentLabel}}</div>
+    </div>
+    <a href="Stats.dc.html" style="margin-left: auto; margin-right: -10px; height: 44px; padding: 0 14px; border-radius: 10px; background: {{c.panel}}; box-shadow: {{c.panelShadow}}; display: flex; align-items: center; gap: 8px; text-decoration: none; color: {{c.text}}; font-size: 15px; font-weight: 700">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>
+      Stats
+    </a>
+  </div>
+
+  <div style="position: relative; align-self: center; width: 100%; max-width: 500px; box-sizing: border-box; transform: {{noteTilt}}; transition: transform 0.25s; margin-top: 6px">
+    <div aria-hidden="true" style="position: absolute; top: -14px; left: 50%; width: 110px; height: 28px; margin-left: -55px; background: {{c.tape}}; box-shadow: 0 1px 2px rgba(0,0,0,0.10); transform: {{tapeTilt}}; transition: transform 0.25s"></div>
+    <div style="background: {{noteBg}}; border-radius: 4px; box-shadow: {{c.noteShadow}}; padding: clamp(22px, 6vw, 30px) clamp(16px, 6vw, 32px) 26px; display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative">
+      <sc-if value="{{opts.hanja}}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; top: clamp(18px, 6vw, 40px); right: clamp(12px, 5vw, 30px); display: flex; flex-direction: column; align-items: center; gap: 2px">
+          <div lang="ko-Hani" style="font-family: 'Noto Serif KR', serif; font-size: clamp(20px, 6vw, 30px); font-weight: 600; line-height: 1.1; color: #2B3A52">大박</div>
+        </div>
+      </sc-if>
+      <div style="font-size: clamp(64px, 19vw, 104px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; color: #1B2433">대박</div>
+      <div style="display: flex; align-items: center; gap: 10px; min-height: 4px">
+        <sc-if value="{{opts.roman}}" hint-placeholder-val="{{ true }}">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 500; color: #2B3A52">daebak</span>
+        </sc-if>
+        <sc-if value="{{opts.info}}" hint-placeholder-val="{{ true }}">
+          <span style="background: #1E3A6E; color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 5px">noun · slang</span>
+        </sc-if>
+      </div>
+      <sc-if value="{{anyLang}}" hint-placeholder-val="{{ true }}">
+        <div style="width: 100%; border-top: 1.5px dashed rgba(27,36,51,0.35); margin: 6px 0 4px"></div>
+        <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 36px; color: #1B2433">
+          <sc-if value="{{opts.en}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; align-items: center; gap: 8px"><span style="background: #1E3A6E; color: #FFFFFF; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px">EN</span><span style="font-size: 16px; font-weight: 700">awesome; jackpot</span></div>
+          </sc-if>
+          <sc-if value="{{opts.es}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; align-items: center; gap: 8px"><span style="background: #1E3A6E; color: #FFFFFF; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px">ES</span><span style="font-size: 16px; font-weight: 700">¡brutal!; increíble</span></div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="width: 100%; max-width: 560px; box-sizing: border-box; background: {{c.panel}}; border-radius: 14px; box-shadow: {{c.panelShadow}}; padding: clamp(16px, 4vw, 20px) clamp(16px, 4vw, 22px); display: flex; flex-direction: column; gap: 14px">
+    <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; color: {{c.body}}">EXAMPLE</div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 19px; font-weight: 500">이 영화 진짜 <span style="background: linear-gradient(transparent 58%, {{hl}} 58%); font-weight: 700">대박</span>이다</div>
+      <div style="display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: {{c.body}}">
+        <sc-if value="{{opts.en}}" hint-placeholder-val="{{ true }}"><div style="display: flex; gap: 6px; align-items: baseline"><span style="font-size: 10px; font-weight: 700; color: {{c.chipText}}; background: {{c.chipBg}}; padding: 1px 5px; border-radius: 3px">EN</span><span>This movie is seriously amazing</span></div></sc-if>
+        <sc-if value="{{opts.es}}" hint-placeholder-val="{{ true }}"><div style="display: flex; gap: 6px; align-items: baseline"><span style="font-size: 10px; font-weight: 700; color: {{c.chipText}}; background: {{c.chipBg}}; padding: 1px 5px; border-radius: 3px">ES</span><span>Esta película está buenísima</span></div></sc-if>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 10px">
+    <div role="group" aria-label="How well did you remember?" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+      <sc-for list="{{answers}}" as="a" hint-placeholder-count="4">
+        <button type="button" onClick="{{a.pick}}" aria-label="{{a.aria}}" style="{{a.style}}">
+          <span style="font-size: 12px; font-weight: 500; color: {{c.muted}}; font-variant-numeric: tabular-nums">{{a.interval}}</span>
+          <span style="font-size: 16px; font-weight: 800">{{a.label}}</span>
+        </button>
+      </sc-for>
+    </div>
+    
+  </div>
+
+  <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ true }}">
+    <div onClick="{{closeMenu}}" style="position: fixed; inset: 0; z-index: 10; background: {{c.scrim}}"></div>
+    <nav aria-label="Menu" style="position: fixed; top: 0; left: 0; bottom: 0; z-index: 11; width: min(284px, 86vw); box-sizing: border-box; background: {{c.panel}}; box-shadow: 12px 0 32px -12px rgba(0,0,0,0.4); padding: 24px 16px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; color: {{c.text}}">
+      <div style="display: flex; align-items: center; justify-content: space-between; padding-left: 8px">
+        <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; color: {{c.body}}">DECKS</div>
+        <button type="button" aria-label="Close menu" onClick="{{closeMenu}}" style="width: 44px; height: 44px; border: none; background: transparent; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; color: {{c.body}}">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <button type="button" onClick="{{g1.toggle}}" aria-expanded="{{g1.expandedAttr}}" style="height: 48px; border: none; background: {{c.rowBg}}; border-radius: 10px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: inherit; color: {{c.text}}">
+            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">TOPIK I</span><span style="font-size: 12px; color: {{c.muted}}">초급</span></span>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: {{g1.chevron}}; transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{g1.expanded}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 4px 0 6px 12px">
+              <button type="button" onClick="{{l1.pick}}" style="{{l1.style}}"><span>Level 1</span><span style="{{l1.countStyle}}">800</span></button>
+              <button type="button" onClick="{{l2.pick}}" style="{{l2.style}}"><span>Level 2</span><span style="{{l2.countStyle}}">1,200</span></button>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <button type="button" onClick="{{g2.toggle}}" aria-expanded="{{g2.expandedAttr}}" style="height: 48px; border: none; background: {{c.rowBg}}; border-radius: 10px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: inherit; color: {{c.text}}">
+            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">TOPIK II</span><span style="font-size: 12px; color: {{c.muted}}">중·고급</span></span>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: {{g2.chevron}}; transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{g2.expanded}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 4px 0 6px 12px">
+              <button type="button" onClick="{{l3.pick}}" style="{{l3.style}}"><span>Level 3</span><span style="{{l3.countStyle}}">1,000</span></button>
+              <button type="button" onClick="{{l4.pick}}" style="{{l4.style}}"><span>Level 4</span><span style="{{l4.countStyle}}">1,500</span></button>
+              <button type="button" onClick="{{l5.pick}}" style="{{l5.style}}"><span>Level 5</span><span style="{{l5.countStyle}}">2,000</span></button>
+              <button type="button" onClick="{{l6.pick}}" style="{{l6.style}}"><span>Level 6</span><span style="{{l6.countStyle}}">3,500</span></button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="padding: 4px 0 2px 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; color: {{c.muted}}">KING SEJONG INSTITUTE</div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <button type="button" onClick="{{gk1.toggle}}" aria-expanded="{{gk1.expandedAttr}}" style="height: 48px; border: none; background: {{c.rowBg}}; border-radius: 10px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: inherit; color: {{c.text}}">
+            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">Beginner</span><span style="font-size: 12px; color: {{c.muted}}">초급</span></span>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: {{gk1.chevron}}; transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{gk1.expanded}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 4px 0 6px 12px">
+              <button type="button" onClick="{{k1.pick}}" style="{{k1.styleWrap}}"><span>King Sejong Institute Korean 1</span><span style="{{k1.countStyle}}">—</span></button>
+              <button type="button" onClick="{{k2.pick}}" style="{{k2.styleWrap}}"><span>King Sejong Institute Korean 2</span><span style="{{k2.countStyle}}">—</span></button>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <button type="button" onClick="{{gk2.toggle}}" aria-expanded="{{gk2.expandedAttr}}" style="height: 48px; border: none; background: {{c.rowBg}}; border-radius: 10px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: inherit; color: {{c.text}}">
+            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">Intermediate</span><span style="font-size: 12px; color: {{c.muted}}">중급</span></span>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: {{gk2.chevron}}; transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{gk2.expanded}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 4px 0 6px 12px">
+              <button type="button" onClick="{{k3a.pick}}" style="{{k3a.styleWrap}}"><span>King Sejong Institute Korean 3A</span><span style="{{k3a.countStyle}}">—</span></button>
+              <button type="button" onClick="{{k3b.pick}}" style="{{k3b.styleWrap}}"><span>King Sejong Institute Korean 3B</span><span style="{{k3b.countStyle}}">—</span></button>
+              <button type="button" onClick="{{k4a.pick}}" style="{{k4a.styleWrap}}"><span>King Sejong Institute Korean 4A</span><span style="{{k4a.countStyle}}">—</span></button>
+              <button type="button" onClick="{{k4b.pick}}" style="{{k4b.styleWrap}}"><span>King Sejong Institute Korean 4B</span><span style="{{k4b.countStyle}}">—</span></button>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <button type="button" onClick="{{gk3.toggle}}" aria-expanded="{{gk3.expandedAttr}}" style="height: 48px; border: none; background: {{c.rowBg}}; border-radius: 10px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: inherit; color: {{c.text}}">
+            <span style="display: flex; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">Advanced</span><span style="font-size: 12px; color: {{c.muted}}">고급</span></span>
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: {{gk3.chevron}}; transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <sc-if value="{{gk3.expanded}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 4px 0 6px 12px">
+              <button type="button" onClick="{{k5a.pick}}" style="{{k5a.styleWrap}}"><span>King Sejong Institute Korean 5A</span><span style="{{k5a.countStyle}}">—</span></button>
+              <button type="button" onClick="{{k5b.pick}}" style="{{k5b.styleWrap}}"><span>King Sejong Institute Korean 5B</span><span style="{{k5b.countStyle}}">—</span></button>
+              <button type="button" onClick="{{k6a.pick}}" style="{{k6a.styleWrap}}"><span>King Sejong Institute Korean 6A</span><span style="{{k6a.countStyle}}">—</span></button>
+              <button type="button" onClick="{{k6b.pick}}" style="{{k6b.styleWrap}}"><span>King Sejong Institute Korean 6B</span><span style="{{k6b.countStyle}}">—</span></button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid {{c.chipBg}}"></div>
+
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <button type="button" onClick="{{toggleOptions}}" aria-expanded="{{optionsExpandedAttr}}" style="height: 48px; border: none; background: {{c.rowBg}}; border-radius: 10px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: inherit; color: {{c.text}}">
+          <span style="display: flex; align-items: center; gap: 10px">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"></path><circle cx="16" cy="7" r="2"></circle><circle cx="8" cy="17" r="2"></circle></svg>
+            <span style="font-size: 16px; font-weight: 800">Options</span>
+          </span>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: {{optionsChevron}}; transition: transform 0.15s"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <sc-if value="{{optionsExpanded}}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 2px; padding: 4px 0 6px 12px">
+            <sc-for list="{{toggles}}" as="t" hint-placeholder-count="5">
+              <button type="button" role="switch" aria-checked="{{t.checked}}" onClick="{{t.flip}}" style="height: 44px; border: none; background: transparent; border-radius: 8px; padding: 0 8px 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 500; color: {{c.ink2}}; text-align: left">
+                <span style="display: flex; align-items: baseline; gap: 6px"><span>{{t.label}}</span></span><span aria-hidden="true" style="{{t.track}}"><span style="{{t.knob}}"></span></span>
+              </button>
+            </sc-for>
+
+            <button type="button" role="switch" aria-checked="{{darkAttr}}" aria-label="Dark mode" onClick="{{flipDark}}" style="height: 44px; border: none; background: transparent; border-radius: 8px; padding: 0 8px 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 500; color: {{c.ink2}}; text-align: left">
+              
+              <span aria-hidden="true" style="{{darkTrack}}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{c.trackIcon}}" stroke-width="2.4" stroke-linecap="round" style="position: absolute; left: 6px; top: 6px"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{c.trackIcon}}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 7px; top: 7px"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                <span style="{{darkKnob}}">
+                  <sc-if value="{{dark}}" hint-placeholder-val="{{ false }}">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="#1E3A6E" stroke="#1E3A6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                  </sc-if>
+                  <sc-if value="{{light}}" hint-placeholder-val="{{ true }}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C98A00" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="#FFC93C"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                  </sc-if>
+                </span>
+              </span>
+            </button>
+          </div>
+        </sc-if>
+      </div>
+    </nav>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"note":{"editor":"color","default":"#C9DEFB","options":["#C9DEFB","#B3D4FF","#A9C9EE","#DCE8F7"]},"menuOpen":{"editor":"boolean","default":true},"dark":{"editor":"boolean","default":false},"$preview":{"width":600,"height":800}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: null,
+      dark: null,
+      expanded: { t1: true, t2: false, k1: false, k2: false, k3: false },
+      optionsExpanded: true,
+      level: 1,
+      answer: null,
+      opts: { hanja: true, roman: true, info: true, es: true, en: true, tilt: true }
+    };
+  }
+  renderVals() {
+    const note = this.props.note ?? '#C9DEFB';
+    const noteBg = 'linear-gradient(155deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%), ' + note;
+    const menuOpen = this.state.open === null ? (this.props.menuOpen ?? true) : this.state.open;
+    const dark = this.state.dark === null ? !!(this.props.dark ?? false) : this.state.dark;
+    const c = dark ? {
+      bg: '#0F1520', grid: '#172030', text: '#E8EEF7', muted: '#9AA8BF', body: '#B4C0D3', ink2: '#CCD6E6',
+      panel: '#1A2333', chipBg: '#2A364A', chipText: '#D2DEF0', divider: '#334058', rowBg: '#243044',
+      scrim: 'rgba(0,0,0,0.55)', tape: 'rgba(255,255,255,0.28)',
+      noteShadow: '0 18px 30px -12px rgba(0,0,0,0.7), 0 2px 4px rgba(0,0,0,0.4)',
+      panelShadow: '0 8px 24px -10px rgba(0,0,0,0.6)',
+      switchOn: '#3B82F6', switchOff: '#46546C', trackIcon: 'rgba(255,255,255,0.55)'
+    } : {
+      bg: '#EDF1F7', grid: '#DFE6F0', text: '#1B2433', muted: '#55627A', body: '#3F4C63', ink2: '#2B3A52',
+      panel: '#FFFFFF', chipBg: '#E6EDF7', chipText: '#1E3A6E', divider: '#D3DCE8', rowBg: '#F0F4FA',
+      scrim: 'rgba(27,36,51,0.32)', tape: 'rgba(255,255,255,0.65)',
+      noteShadow: '0 18px 30px -12px rgba(27,36,51,0.35), 0 2px 4px rgba(27,36,51,0.12)',
+      panelShadow: '0 8px 24px -10px rgba(27,36,51,0.25)',
+      switchOn: '#1E3A6E', switchOff: '#C3CEDD', trackIcon: 'rgba(255,255,255,0.85)'
+    };
+    const opts = this.state.opts;
+    const base = 'height: 44px; border: none; border-radius: 8px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: inherit; font-size: 15px; text-align: left; ';
+    const group = (id) => {
+      const expanded = !!this.state.expanded[id];
+      return {
+        expanded,
+        expandedAttr: expanded ? 'true' : 'false',
+        chevron: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+        toggle: () => this.setState({ expanded: { ...this.state.expanded, [id]: !expanded } })
+      };
+    };
+    const level = (n) => {
+      const sel = this.state.level === n;
+      const st = base + (sel
+        ? 'background: ' + note + '; color: #1B2433; font-weight: 800;'
+        : 'background: transparent; color: ' + c.ink2 + '; font-weight: 500;');
+      return {
+        styleWrap: st.replace('height: 44px; ', 'min-height: 44px; ').replace('padding: 0 12px;', 'padding: 8px 12px; line-height: 1.3; gap: 10px;'),
+        pick: () => this.setState({ level: n }),
+        style: base + (sel
+          ? 'background: ' + note + '; color: #1B2433; font-weight: 800;'
+          : 'background: transparent; color: ' + c.ink2 + '; font-weight: 500;'),
+        countStyle: 'font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; color: ' + (sel ? '#3F4C63' : c.muted) + ';'
+      };
+    };
+    const trackBase = 'flex: none; width: 40px; height: 24px; border-radius: 12px; box-sizing: border-box; padding: 3px; display: flex; transition: background 0.15s; ';
+    const toggleDefs = [
+      { key: 'hanja', label: 'Hanja' },
+      { key: 'roman', label: 'Romanization' },
+      { key: 'info', label: 'Word info' },
+      { key: 'es', label: 'Spanish' },
+      { key: 'en', label: 'English' },
+      { key: 'tilt', label: 'Tilted card' }
+    ];
+    const toggles = toggleDefs.map((t) => {
+      const on = !!opts[t.key];
+      return {
+        label: t.label,
+        checked: on ? 'true' : 'false',
+        flip: () => this.setState({ opts: { ...this.state.opts, [t.key]: !on } }),
+        track: trackBase + 'background: ' + (on ? c.switchOn : c.switchOff) + '; justify-content: ' + (on ? 'flex-end' : 'flex-start') + ';',
+        knob: 'width: 18px; height: 18px; border-radius: 9px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.3);'
+      };
+    });
+    const answerDefs = [
+      { key: 'again', label: 'Again', interval: '<1m', spoken: 'in under a minute', light: ['#FDECEA', '#B42318'], dark: ['#3A2326', '#FF9F93'] },
+      { key: 'hard', label: 'Hard', interval: '6m', spoken: 'in 6 minutes', light: ['#FFF1D6', '#8A5300'], dark: ['#3A3020', '#F2C36B'] },
+      { key: 'good', label: 'Good', interval: '10m', spoken: 'in 10 minutes', light: ['#E2F4E7', '#1E6B3A'], dark: ['#1F3328', '#8BD9A6'] },
+      { key: 'easy', label: 'Easy', interval: '4d', spoken: 'in 4 days', light: ['#E2ECFA', '#1D4F91'], dark: ['#1F2A3D', '#9CC2F5'] }
+    ];
+    const picked = this.state.answer;
+    const answers = answerDefs.map((a, i) => {
+      const [bgc, fg] = dark ? a.dark : a.light;
+      const sel = picked === a.key;
+      return {
+        label: a.label,
+        interval: a.interval,
+        aria: a.label + ', see again ' + a.spoken,
+        pick: () => this.setState({ answer: a.key }),
+        style: 'min-height: 64px; border: 2px solid ' + (sel ? fg : 'transparent') + '; border-radius: 12px; background: ' + bgc + '; color: ' + fg + '; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; font-family: inherit; padding: 8px 4px;'
+      };
+    });
+    const pickedDef = answerDefs.find((a) => a.key === picked);
+    const lv = this.state.level;
+    const ox = this.state.optionsExpanded;
+    return {
+      c,
+      note,
+      noteBg,
+      hl: dark ? note + '66' : note,
+      dark,
+      light: !dark,
+      darkAttr: dark ? 'true' : 'false',
+      flipDark: () => this.setState({ dark: !dark }),
+      darkTrack: 'position: relative; flex: none; width: 52px; height: 26px; border-radius: 13px; box-sizing: border-box; padding: 3px; display: flex; transition: background 0.15s; background: ' + (dark ? c.switchOn : '#8FB4E8') + '; justify-content: ' + (dark ? 'flex-end' : 'flex-start') + ';',
+      darkKnob: 'position: relative; width: 20px; height: 20px; border-radius: 10px; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;',
+      menuOpen,
+      g1: group('t1'),
+      g2: group('t2'),
+      l1: level(1), l2: level(2), l3: level(3), l4: level(4), l5: level(5), l6: level(6),
+      gk1: group('k1'), gk2: group('k2'), gk3: group('k3'),
+      k1: level('k1'), k2: level('k2'), k3a: level('k3a'), k3b: level('k3b'), k4a: level('k4a'), k4b: level('k4b'),
+      k5a: level('k5a'), k5b: level('k5b'), k6a: level('k6a'), k6b: level('k6b'),
+      toggles,
+      answers,
+      feedback: pickedDef ? 'You’ll see 대박 again ' + pickedDef.spoken : 'How well did you remember it?',
+      opts,
+      noteTilt: opts.tilt ? 'rotate(-1.6deg)' : 'none',
+      tapeTilt: opts.tilt ? 'rotate(2deg)' : 'none',
+      anyLang: !!(opts.en || opts.es),
+      optionsExpanded: ox,
+      optionsExpandedAttr: ox ? 'true' : 'false',
+      optionsChevron: ox ? 'rotate(180deg)' : 'rotate(0deg)',
+      toggleOptions: () => this.setState({ optionsExpanded: !this.state.optionsExpanded }),
+      currentLabel: typeof lv === 'number' ? (lv <= 2 ? 'TOPIK I' : 'TOPIK II') + ' · Level ' + lv : 'King Sejong Institute · Korean ' + lv.slice(1).toUpperCase(),
+      openMenu: () => this.setState({ open: true }),
+      closeMenu: () => this.setState({ open: false })
+    };
+  }
+}
+</script>
+</body>
+</html>
