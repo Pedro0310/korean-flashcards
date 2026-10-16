@@ -1,6 +1,7 @@
 # Korean Flashcards
 
 A Korean vocabulary tracker with spaced repetition. React + Tailwind front end, a small Hono API, PostgreSQL.
+https://korean-flashcards-yk5n.onrender.com/
 
 ## Running it
 
